@@ -26,6 +26,7 @@ Hệ thống chia làm 2 phần chính với các serivce tương ứng
     * Historical Market Service
     * Corporate Action Service
     * Company Profile Service
+    * Share Holder Service
 
 *  Cung cấp dữ liệu(Đọc dữ liệu)
     * Technical Serivce
@@ -342,11 +343,16 @@ create table AD_CASH_DIVIDEND
 1. Fundamental Service
 
 ```
-git clone https://git.aeit.club/master/fundamental
+git clone https://github.com/minhdatplus/fundamental-service
 
 docker build -t fundamental-service:1.0 .
 
 docker run -it -d -p 8080:8080 fundamental-service:1.0 .
+```
+
+Truy cập API Document tại đường dẫn
+```
+http://localhost:8080/fundamental/swagger-ui.html#/
 ```
 
 2. Market News Service
@@ -370,6 +376,11 @@ docker build -t market-news-service:1.0 .
 docker run -it -d -p 8080:8080 market-news-service:1.0 .
 ```
 
+Truy cập API Document tại đường dẫn
+```
+http://localhost:8080/news/swagger-ui.html#/
+```
+
 3. Finance Report Service
 
 ```
@@ -391,6 +402,10 @@ docker build -t finance-report-service:1.0 .
 docker run -it -d -p 8080:8080 finance-report-service:1.0 .
 ```
 
+Truy cập API Document tại đường dẫn
+```
+http://localhost:8080/finance/swagger-ui.html#/
+```
 4. Historical Market Service
 
 ```
@@ -412,6 +427,10 @@ docker build -t historical-market-service:1.0 .
 docker run -it -d -p 8080:8080 historical-market-service:1.0 .
 ```
 
+Truy cập API Document tại đường dẫn
+```
+http://localhost:8080/dailystock/swagger-ui.html#/
+```
 5. Corporate Action Service
 
 ```
@@ -433,6 +452,10 @@ docker build -t corporate-action-service:1.0 .
 docker run -it -d -p 8080:8080 corporate-action-service:1.0 .
 ```
 
+Truy cập API Document tại đường dẫn
+```
+http://localhost:8080/corporate/swagger-ui.html#/
+```
 6. Company Profile Service
 
 ```
@@ -454,22 +477,65 @@ docker build -t company-profile-service:1.0 .
 docker run -it -d -p 8080:8080 company-profile-service:1.0 .
 ```
 
-7. Technical Service
+Truy cập API Document tại đường dẫn
+```
+http://localhost:8080/companyprofile/swagger-ui.html#/
+```
+7. Share Holder Service
 
 ```
-git clone https://git.aeit.club/master/historical
+git clone https://github.com/minhdatplus/crawl-shareholdeer
+```
+
+Thay đổi đường dẫn trong file application.properties với đường dẫn của database và fundametal-service đã triển khai phía trên
+
+```
+url.fundamental.host=<fundamental_service_url>
+
+spring.datasource.url=jdbc:oracle:thin:@<database_url>:1521:xe
+```
+
+Sau đó tiến hành build docker image theo lệnh bên dưới
+```
+docker build -t share-holder-service:1.0 .
+
+docker run -it -d -p 8080:8080 share-holder-service:1.0 .
+```
+
+Truy cập API Document tại đường dẫn
+```
+http://localhost:8080/shareholder/swagger-ui.html#/
+```
+8. Technical Service
+
+```
+git clone https://github.com/minhdatplus/technical-service
 
 docker-compose up --build
 ```
 
-8. Single Page Application
+9. Single Page Application
 
 ```
-git clone https://git.aeit.club/master/stocker
-
+git clone https://github.com/minhdatplus/stocker-app
+```
+Cài đặt node modules
+```
 npm install
+```
 
-npm run start:dev
+Cấu hình đường dẫn dịch vụ fundamental-service đã triển khai phía trên tại đường dẫn
+```
+src/services/const/server.const.js
+
+export const host = '<fundamental_service_url>';
+```
+
+Sau đó tiến hành build docker image theo lệnh bên dưới
+```
+docker build -t stocker-app:1.0 .
+
+docker run -it -d -p 8000:8000 stocker-app:1.0 .
 ```
 
 9. Amibroker pluginn
