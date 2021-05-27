@@ -538,7 +538,11 @@ docker build -t stocker-app:1.0 .
 docker run -it -d -p 8000:8000 stocker-app:1.0 .
 ```
 
-9. Amibroker pluginn
+9. Amibroker plugin
+
+```
+git clone https://github.com/minhdatplus/amibroker-plugin
+```
 
 Building using Visual Studio 2019 and `vcpkg`
 Visual Studio 2019 install with feature `Desktop development with C++` and `Individual feature: Windows 10 SDK, MSVC v140 - VS 2015 C++ buiding tools (v14.00)`
